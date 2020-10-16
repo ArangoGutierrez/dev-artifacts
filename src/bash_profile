@@ -5,10 +5,11 @@
 # user specific environment
 HISTCONTROL=erasedups:ignorespace
 GIT_EDITOR=vim
+KUBE_EDITOR=vim
 SDK=$HOME/sdk
 REGISTRY_AUTH_FILE=$SDK/psap-ocp/secrets/pull_secret
 PATH=$PATH:/usr/local/go/bin:$HOME/go/bin:$SDK/bin
-export SDK GIT_EDITOR HISTCONTROL PATH REGISTRY_AUTH_FILE
+export SDK GIT_EDITOR HISTCONTROL PATH REGISTRY_AUTH_FILE KUBE_EDITOR
 
 # User specific aliases and functions
 alias ll="ls --color -lha"
