@@ -115,3 +115,15 @@ function! CustomLs()
   !ls -lha --color=auto
 endfunction
 nnoremap LL :call CustomLs()<cr>
+
+" Align all text to current textwidth
+function! FormatText()
+  normal! mmgqG'm
+endfunction
+nnoremap FF :call FormatText()<cr>
+
+" Fix last miss spelled word and return to current mark
+function! FixLastSpellingError()
+  normal! mm[s1z=`m
+endfunction
+nnoremap SP :call FixLastSpellingError()<cr>
