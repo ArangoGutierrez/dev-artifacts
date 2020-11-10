@@ -118,7 +118,7 @@ nnoremap LL :call CustomLs()<cr>
 
 " Align all text to current textwidth
 function! FormatText()
-  normal! mmgqG'm
+  normal! mm{gqG'm
 endfunction
 nnoremap FF :call FormatText()<cr>
 
