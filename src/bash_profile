@@ -1,15 +1,15 @@
 # Eduardo Arango
-# carangog@redhat.com
-# Software development kit 
+# eduardoa@nvidia.com
+# Software Development Kit 
 
 # user specific environment
 HISTCONTROL=erasedups:ignorespace
-GIT_EDITOR=vim
-KUBE_EDITOR=vim
+GIT_EDITOR=vi
+KUBE_EDITOR=vi
+EDITOR=vi
 SDK=$HOME/sdk
-REGISTRY_AUTH_FILE=$SDK/psap-ocp/secrets/pull_secret
 PATH=$PATH:/usr/local/go/bin:$HOME/go/bin:$SDK/bin
-export SDK GIT_EDITOR HISTCONTROL PATH REGISTRY_AUTH_FILE KUBE_EDITOR
+export SDK GIT_EDITOR HISTCONTROL PATH REGISTRY_AUTH_FILE KUBE_EDITOR EDITOR
 
 # User specific aliases and functions
 alias ll="ls --color -lha"
@@ -34,90 +34,11 @@ alias tend='tmux kill-session -t eduardo'
 set -o vi
 
 # oc Autocomplete bash 
-source <(oc completion bash)
 source <(kubectl completion bash)
 
 # Custom bash functions
-# Load openshift binaries into $HOME/sdk/bin
-function load_beans() {
-
-for bean in `ls $HOME/sdk/psap-ocp/$1/bin`
-do
-	echo "Loading" $1 $bean into $HOME/sdk/bin
-	install	$HOME/sdk/psap-ocp/$1/bin/$bean $HOME/sdk/bin
-done
-
-}
-
-
-# Set the KUBECONFIG env var, needed when working with multiple clusters
-function set_kubeconfig() {
-
-if [ -f $HOME/sdk/psap-ocp/$1/install_dir/auth/kubeconfig ]; then
-	export KUBECONFIG=$HOME/sdk/psap-ocp/$1/install_dir/auth/kubeconfig
-	echo "KUBECONFIG set to $HOME/sdk/psap-ocp/$1/install_dir/auth/kubeconfig"
-	load_beans $1
-	echo "Binaries for OC $1 loaded"
-else
-	echo $1 "kubeconfig file doesn't exists" >/dev/stderr
-fi
-
-}
-
-# Retrieve pull_secret in a json format
-function get_pull_secret() {
-	
-	echo""
-	cat $SDK/psap-ocp/secrets/pull_secret | jq -c
-	echo ""
-
-}
-
 # Pretty git log print
 function get_git_logs() {
 
 	git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit $1
-}
-
-# The Unsubsquirrel, part of Red Hat Culture for remote employees
-function unsubsquirrel() {
-
-	echo ""
-	echo  "		                          .xxxxx.
-                                      yyxxculturexy
-                                    yyx          xyy
-                                  yy              xyy
-                                yy                 xyy
-                               yy                   xyy
-                              yy                   . xyy
-                             yy                .xyyopeny
-                            yy                xyy    xyy
-                            yy                xyy   xy
-                            yy                 xyy  x
-                       yx  yy                  xyy
-                      y  x  yy                   xyy
-                     y   x   yy                   xyy
-                   yy     x    yy                   xyy
-                 yy        x    yy                    xyy
-                y           x    yy                     xyy
-               yy            xyyyx                        xyy
-                yy            xyyyx                        xyy
-                  yxlinuxy      xyyyx                       xyy
-                        y        cloudx                     xyy
-                       y           xyyyx                   xyy
-                      y              xyyx                  xyy
-                     y      y         xyyx                xyy
-                     x    yy           xyyx               xyy
-                      xyyy               xyyx            xxy
-                        y                   xyyx        xxy
-                       y                      xyyx     xxy
-                        y                      xyyx   xxy
-                        y                       xyxxxxxy
-                        yy                       xyyyyx
-                     yyy yy                       xyyx
-                    yy    y                       yyx
-                     yyremoteelife_unsubsquirrel_yyx"
-
-	echo ""
-
 }
